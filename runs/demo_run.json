@@ -1,0 +1,58 @@
+[
+  {
+    "timestamp": "2026-09-07T16:36:34.933655+00:00",
+    "action_name": "plan_task",
+    "input": {
+      "task": "test task"
+    },
+    "output": {
+      "plan": "break task into subtasks"
+    }
+  },
+  {
+    "timestamp": "2026-09-07T16:36:34.933792+00:00",
+    "action_name": "search_info",
+    "input": {
+      "query": "test task"
+    },
+    "output": {
+      "results": [
+        "fact A",
+        "fact B"
+      ]
+    }
+  },
+  {
+    "timestamp": "2026-09-07T16:36:34.933873+00:00",
+    "action_name": "analyze_info",
+    "input": {
+      "facts": [
+        "fact A",
+        "fact B"
+      ]
+    },
+    "output": {
+      "analysis": "facts support a solution"
+    }
+  },
+  {
+    "timestamp": "2026-09-07T16:36:34.933970+00:00",
+    "action_name": "draft_answer",
+    "input": {
+      "analysis": "facts support a solution"
+    },
+    "output": {
+      "draft": "here is a draft answer"
+    }
+  },
+  {
+    "timestamp": "2026-09-07T16:36:34.934028+00:00",
+    "action_name": "finalize_answer",
+    "input": {
+      "draft": "here is a draft answer"
+    },
+    "output": {
+      "final": "here is the final answer"
+    }
+  }
+]
