@@ -5,6 +5,7 @@ import os
 from runtimeguard.logger import StepLogger
 from runtimeguard.fake_agent import FakeAgent
 from runtimeguard.supervisor import Supervisor
+from runtimeguard.report import generate_report
 
 
 def main():
@@ -28,6 +29,9 @@ def main():
         f"stop_reason={summary['stop_reason']}"
     )
 
+    generate_report(logger, supervisor, "reports/normal_run_report.md")
+    print("Report saved to reports/normal_run_report.md")
+
     print()
     print("--- Loop detection demo ---")
 
@@ -43,6 +47,9 @@ def main():
         f"Loop supervisor summary: step_count={loop_summary['step_count']}, "
         f"stopped={loop_summary['stopped']}, stop_reason={loop_summary['stop_reason']}"
     )
+
+    generate_report(loop_logger, loop_supervisor, "reports/loop_run_report.md")
+    print("Report saved to reports/loop_run_report.md")
 
 
 if __name__ == "__main__":
