@@ -28,6 +28,22 @@ def main():
         f"stop_reason={summary['stop_reason']}"
     )
 
+    print()
+    print("--- Loop detection demo ---")
+
+    # loop_threshold=3 means: if the same action+input shows up 3 times in a
+    # row, treat it as a stuck agent and stop it.
+    loop_logger = StepLogger()
+    loop_agent = FakeAgent(loop_logger)
+    loop_supervisor = Supervisor(loop_logger, loop_threshold=3)
+    loop_agent.run("test task", loop_supervisor, mode="loop")
+
+    loop_summary = loop_supervisor.get_summary()
+    print(
+        f"Loop supervisor summary: step_count={loop_summary['step_count']}, "
+        f"stopped={loop_summary['stopped']}, stop_reason={loop_summary['stop_reason']}"
+    )
+
 
 if __name__ == "__main__":
     main()

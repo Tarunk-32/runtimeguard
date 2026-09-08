@@ -9,18 +9,32 @@ class Supervisor:
     it's still allowed to continue.
     """
 
-    def __init__(self, logger, max_steps=None, max_cost=None):
+    def __init__(self, logger, max_steps=None, max_cost=None, loop_threshold=None):
         self.logger = logger
         self.max_steps = max_steps
         self.max_cost = max_cost
+        self.loop_threshold = loop_threshold
+        """If set (e.g. 3), stop the run when the same action+input repeats
+        this many times in a row. None (the default) turns loop detection off."""
 
         self.total_cost = 0.0
         self.step_count = 0
         self.stopped = False
         self.stop_reason = None
 
-    def check_step(self, step_cost: float) -> bool:
-        """Record one step's cost, then return True to continue or False to stop.
+        self._recent_steps = []
+        """Rolling history of (action_name, input_data) pairs, used for exact-match
+        loop detection. Only the last loop_threshold entries matter, but we don't
+        bother trimming it since runs are short-lived."""
+
+    def check_step(self, step_cost: float, action_name=None, input_data=None) -> bool:
+        """Record one step, then return True to continue or False to stop.
+
+        `action_name` and `input_data` are optional so existing callers that only
+        care about cost/step limits keep working unchanged. Passing them enables
+        loop detection: if loop_threshold is set and the last N steps (N =
+        loop_threshold) all share the same action_name and input_data, the run
+        is stopped as a detected loop.
 
         If a limit is set and has been reached, self.stop_reason is set to a
         human-readable explanation of which limit triggered the stop.
@@ -41,6 +55,17 @@ class Supervisor:
                 f"max_cost limit reached: ${self.total_cost:.4f}/${self.max_cost:.4f}"
             )
             return False
+
+        if self.loop_threshold is not None and action_name is not None:
+            self._recent_steps.append((action_name, input_data))
+            n = self.loop_threshold
+            last_n = self._recent_steps[-n:]
+            if len(last_n) == n and all(step == last_n[0] for step in last_n):
+                self.stopped = True
+                self.stop_reason = (
+                    f"Loop detected: '{action_name}' repeated {n} times with identical input"
+                )
+                return False
 
         return True
 
