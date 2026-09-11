@@ -9,11 +9,15 @@ class Supervisor:
     it's still allowed to continue.
     """
 
-    def __init__(self, logger, max_steps=None, max_cost=None, loop_threshold=None):
+    def __init__(self, logger, max_steps=None, max_cost=None, loop_threshold=None, label=None):
         self.logger = logger
         self.max_steps = max_steps
         self.max_cost = max_cost
         self.loop_threshold = loop_threshold
+        self.label = label
+        """Optional human-readable name for this run (e.g. "Project A",
+        "Client Demo"), used to identify the run in things like the
+        dashboard. Purely descriptive - has no effect on limit checking."""
         """If set (e.g. 3), stop the run when the same action+input repeats
         this many times in a row. None (the default) turns loop detection off."""
 
@@ -76,4 +80,5 @@ class Supervisor:
             "step_count": self.step_count,
             "stopped": self.stopped,
             "stop_reason": self.stop_reason,
+            "label": self.label,
         }
