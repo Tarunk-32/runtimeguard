@@ -6,7 +6,7 @@ RuntimeGuard sits around any AI agent and watches it work — tracking every ste
 
 It doesn't do the agent's job. It watches, protects, and reports.
 
-![Dashboard screenshot](reports/dashboard_screenshot.png)
+![Dashboard screenshot](reports/Dashboard.png)
 *(screenshot of reports/dashboard.html — replace with your own after running the demo)*
 
 ---
@@ -15,23 +15,23 @@ It doesn't do the agent's job. It watches, protects, and reports.
 
 AI agents are powerful but unpredictable in production. Common failure modes:
 
-- **Runaway loops** — an agent repeats the same action hundreds of times
-- **Cost explosions** — a single bad run can cost far more than expected, discovered only after the bill arrives
-- **Silent failures** — an agent reports "success" without real visibility into what it actually did
-- **No hard stop** — most agents have no built-in way to cut themselves off
+- **Runaway loops** - an agent repeats the same action hundreds of times
+- **Cost explosions** - a single bad run can cost far more than expected, discovered only after the bill arrives
+- **Silent failures** - an agent reports "success" without real visibility into what it actually did
+- **No hard stop** - most agents have no built-in way to cut themselves off
 
-RuntimeGuard adds that missing layer: real-time observability, enforced budgets, and an emergency brake — without requiring a heavyweight observability platform.
+RuntimeGuard adds that missing layer: real-time observability, enforced budgets, and an emergency brake - without requiring a heavyweight observability platform.
 
 ---
 
 ## What it does
 
-- **Step logging** — records every action an agent takes, with timestamps
-- **Real cost tracking** — for real Claude API calls, calculates actual dollar cost from real token usage (not estimates)
-- **Hard limits** — set a max step count or max cost; RuntimeGuard stops the agent the moment either is crossed
-- **Loop detection** — flags and halts an agent that repeats the same action with identical input
-- **Human-readable reports** — generates a clean Markdown summary after every run
-- **Dashboard** — a single static HTML file visualizing cost and outcome across multiple runs, labeled by project/account
+- **Step logging** - records every action an agent takes, with timestamps
+- **Real cost tracking** - for real Claude API calls, calculates actual dollar cost from real token usage (not estimates)
+- **Hard limits** - set a max step count or max cost; RuntimeGuard stops the agent the moment either is crossed
+- **Loop detection** - flags and halts an agent that repeats the same action with identical input
+- **Human-readable reports** - generates a clean Markdown summary after every run
+- **Dashboard** - a single static HTML file visualizing cost and outcome across multiple runs, labeled by project/account
 
 ---
 
@@ -59,18 +59,18 @@ Limit hit → RuntimeGuard stops the agent immediately → report explains why
 ## Quickstart
 
 ```bash
-git clone https://github.com/<your-username>/runtimeguard.git
+git clone https://github.com/Tarunk-32/runtimeguard.git
 cd runtimeguard
 python -m venv venv
 venv\Scripts\activate       # Windows
 pip install -r requirements.txt
 ```
 
-To run the real-agent demos, add an Anthropic API key:
+To run the real-agent demos, add an Anthropic API key(Or any GPT you use):
 
 ```bash
 # create a .env file in the project root:
-ANTHROPIC_API_KEY=your-key-here
+ANTHROPIC_API_KEY=your-key-here  
 ```
 
 Then run the full demo:
@@ -106,7 +106,7 @@ Real token usage. Real dollar cost. Real enforcement.
 
 ## Limitations (honest scope)
 
-This is a lightweight, local, single-user tool — not an enterprise observability platform. It's built for individual developers and small teams to understand and control agent behavior, and as a portfolio/learning project demonstrating production-minded AI engineering. It doesn't include multi-user auth, persistent hosted storage, or integrations with tools like Datadog/Splunk — see the "Roadmap" section below for what a Level 2 version would add.
+This is a lightweight, local, single-user tool — not an enterprise observability platform. It's built for individual developers and small teams to understand and control agent behavior, and as a portfolio/learning project demonstrating production-minded AI engineering. It doesn't include multi-user auth, persistent hosted storage, or integrations with tools like Datadog/Splunk - see the "Roadmap" section below for what a Level 2 version would add.
 
 ---
 
@@ -128,4 +128,4 @@ Python · LangChain · Anthropic Claude API · Chart.js (dashboard)
 
 ## About
 
-Built by Tarun Kumar Kammela as a portfolio project demonstrating production-focused AI engineering — the safety and observability layer that makes agentic AI usable outside of a chat window.
+Built by Tarun Kumar Kammela as a portfolio project demonstrating production-focused AI engineering - the safety and observability layer that makes agentic AI usable outside of a chat window.
